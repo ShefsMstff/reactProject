@@ -1,11 +1,4 @@
-.container{
-    width: 1400px;
-    margin: 0 auto;
-}
-.row{
-    display: flex;
-    flex-wrap: wrap;
-}
+
 .col-4{
 width: calc(100%/12*4);
 }
@@ -13,9 +6,11 @@ width: calc(100%/12*4);
     padding: 20px;
 }
 #products{
+    margin-top: 50px;
     h1{
         font-size: 3em;
         text-align: center;
+        
     }
     hr{
         margin-top: 30px;
@@ -25,10 +20,12 @@ width: calc(100%/12*4);
     gap: 16px;
     justify-content: center;
     margin: 40px 0;
+    
     button{
         padding: 5px 10px;
         font-size: 15px;
         border-radius: 5px;
+        
     }
 }
 .card{
@@ -71,6 +68,7 @@ width: calc(100%/12*4);
             background-color: black;
             color: white;
             font-size: 18px;
+            cursor: pointer;
         }
       }  
         

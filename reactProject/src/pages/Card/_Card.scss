@@ -1,0 +1,39 @@
+
+.Card-storage{
+   h1{
+    text-align: center;
+    font-size:44px;
+
+    margin-top: 40px;
+   }
+    .card-window{
+        
+        text-align: center;
+        background-color: rgb(246, 245, 245);
+        padding: 130px 0;
+        margin: 50px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+       
+        h1{
+            font-size: 50px;
+        }
+        
+        .navigation{
+            padding: 10px 40px;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-top:20px ;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            a{
+                text-decoration: none;
+                color: inherit;
+            }
+        }
+    }
+}
