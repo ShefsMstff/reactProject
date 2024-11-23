@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './_Product.scss';
-import ProductsButton from '../ProductsButton';
 
-const Products = () => {
+const Products = ({ updateCart }) => {
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [category, setCategory] = useState('all');  
-const fetchProducts = async () => {
+
+  const fetchProducts = async () => {
     try {
       const response = await fetch('https://fakestoreapi.com/products');
       if (!response.ok) {
@@ -16,23 +14,30 @@ const fetchProducts = async () => {
       }
       const data = await response.json();
       setProducts(data);
-      setFilteredProducts(data);  
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
-const filterProducts = (category) => {
-    setCategory(category);
-    if (category === 'all') {
-      setFilteredProducts(products);  
-    } else {
-      const filtered = products.filter(product =>
-        product.category.toLowerCase() === category.toLowerCase()
+
+  const addToCart = (product) => {
+    const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+    const productExists = existingCart.find((item) => item.id === product.id);
+  
+    let updatedCart;
+    if (productExists) {
+      updatedCart = existingCart.map((item) =>
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
       );
-      setFilteredProducts(filtered);  
+    } else {
+      updatedCart = [...existingCart, { ...product, quantity: 1 }];
     }
+  
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+
+    
+    updateCart(updatedCart.length); 
   };
 
   useEffect(() => {
@@ -44,15 +49,13 @@ const filterProducts = (category) => {
       <div className="container">
         <h1>Latest Products</h1>
         <hr />
-        <ProductsButton onCategoryChange={filterProducts} />
-        
         {loading ? (
-          <p>Loading...</p>
+          <p style={{ fontSize: '20px' }}>Loading...</p>
         ) : error ? (
           <p>Error: {error}</p>
         ) : (
           <div className="row">
-            {filteredProducts.map(product => (
+            {products.map((product) => (
               <div key={product.id} className="col-4 pad">
                 <div className="card">
                   <div className="card-image">
@@ -68,7 +71,7 @@ const filterProducts = (category) => {
                     </div>
                     <div className="card-actions-buttons">
                       <button>Buy Now</button>
-                      <button>Add to Card</button>
+                      <button onClick={() => addToCart(product)}>Add to Cart</button>
                     </div>
                   </div>
                 </div>

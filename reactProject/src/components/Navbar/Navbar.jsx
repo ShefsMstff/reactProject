@@ -6,6 +6,7 @@ import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { RiShoppingCart2Fill } from 'react-icons/ri';
 
 const Navbar = ({ cartCount }) => {
+  
   return (
     <nav className="navbar">
       <div className="navbar-heading">
