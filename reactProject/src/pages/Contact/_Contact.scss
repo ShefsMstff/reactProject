@@ -11,6 +11,9 @@
       flex-direction: column;
       gap: 15px;
       width: 450px;
+      h1{
+        margin-bottom: 20px;
+      }
       label {
         font-size: 20px;
         color: #333;
@@ -34,7 +37,7 @@
       color: white;
       background-color: #555;
       border: none;
-      width: 100px;
+      width: 100%;
       cursor: pointer;
     }
   

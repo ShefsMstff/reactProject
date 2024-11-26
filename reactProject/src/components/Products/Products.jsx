@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './_Product.scss';
+import ProductsButton from '../ProductsButton';
 
 const Products = ({ updateCart }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  let error =null;
+  const [category, setCategory] = useState('all'); 
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [activeCategory, setActiveCategory] = useState('all'); 
 
   const fetchProducts = async () => {
     try {
@@ -14,8 +18,9 @@ const Products = ({ updateCart }) => {
       }
       const data = await response.json();
       setProducts(data);
+      setFilteredProducts(data);
     } catch (err) {
-      setError(err.message);
+      error = err.message;
     } finally {
       setLoading(false);
     }
@@ -24,6 +29,7 @@ const Products = ({ updateCart }) => {
   const addToCart = (product) => {
     const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
     const productExists = existingCart.find((item) => item.id === product.id);
+
   
     let updatedCart;
     if (productExists) {
@@ -35,9 +41,21 @@ const Products = ({ updateCart }) => {
     }
   
     localStorage.setItem('cart', JSON.stringify(updatedCart));
-
-    
     updateCart(updatedCart.length); 
+    
+  };
+
+  const filterProducts = (category) => {
+    setActiveCategory(category); 
+    setCategory(category); 
+    if (category === 'all') {
+      setFilteredProducts(products); 
+    } else {
+      const filtered = products.filter((product) =>
+        product.category.toLowerCase() === category.toLowerCase()
+      );
+      setFilteredProducts(filtered); 
+    }
   };
 
   useEffect(() => {
@@ -49,13 +67,15 @@ const Products = ({ updateCart }) => {
       <div className="container">
         <h1>Latest Products</h1>
         <hr />
+        <ProductsButton onCategoryChange={filterProducts} activeCategory={activeCategory} />
+
         {loading ? (
           <p style={{ fontSize: '20px' }}>Loading...</p>
         ) : error ? (
           <p>Error: {error}</p>
         ) : (
           <div className="row">
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <div key={product.id} className="col-4 pad">
                 <div className="card">
                   <div className="card-image">

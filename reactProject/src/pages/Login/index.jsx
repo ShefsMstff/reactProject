@@ -21,9 +21,11 @@ const Login = () => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser && storedUser.email === email && storedUser.password === password) {
       navigate("/"); 
+      alert('login edildi!');
     } else {
       setError("Invalid email or password");
     }
+    
   };
 
   return (

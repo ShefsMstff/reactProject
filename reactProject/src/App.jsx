@@ -1,8 +1,4 @@
 
-
-
-
-
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from "./components/Navbar/Navbar"
@@ -20,31 +16,45 @@ import ProductsButton from './components/ProductsButton';
 function App() {
   const [cartCount, setCartCount] = useState(0);
 
-  const updateCart = (count) => setCartCount(count);
+  const updateCart = (count) => {
+    setCartCount(count);
+    localStorage.setItem('cartCount', count); 
+  };
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
-    setCartCount(savedCart.length); 
+    setCartCount(savedCart.length);
+
+    const handleStorageChange = () => {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      setCartCount(cart.length);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   return (
-   <>
-    <BrowserRouter>
-      <Navbar cartCount={cartCount} />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/productsbutton' element={<ProductsButton />} />
-        <Route path="/products" element={<Products updateCart={updateCart} />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/card" element={<Card updateCart={updateCart} />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
-   </>
-  )
+    <>
+      <BrowserRouter>
+        <Navbar cartCount={cartCount} />
+        <Routes>
+          <Route path="/" element={<Home updateCart={updateCart} />} />
+          <Route path='/productsbutton' element={<ProductsButton />} />
+          <Route path="/products" element={<Products updateCart={updateCart} />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/card" element={<Card updateCart={updateCart} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </>
+  );
 }
+
 
 export default App;

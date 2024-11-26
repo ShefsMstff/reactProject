@@ -28,9 +28,11 @@ const Register = () => {
     localStorage.setItem("user", JSON.stringify(user));
 
     setError(""); 
+    alert('register tamamlandi!');
 
     
     navigate("/login");
+
   };
 
   return (
