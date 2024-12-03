@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './_Product.scss';
 import ProductsButton from '../ProductsButton';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Products = ({ updateCart }) => {
   const [products, setProducts] = useState([]);
@@ -21,7 +23,6 @@ const Products = ({ updateCart }) => {
       setFilteredProducts(data);
     } catch (err) {
       setError(err.message);
-
     } finally {
       setLoading(false);
     }
@@ -30,7 +31,6 @@ const Products = ({ updateCart }) => {
   const addToCart = (product) => {
     const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
     const productExists = existingCart.find((item) => item.id === product.id);
-
 
     let updatedCart;
     if (productExists) {
@@ -44,6 +44,13 @@ const Products = ({ updateCart }) => {
     localStorage.setItem('cart', JSON.stringify(updatedCart));
     updateCart(updatedCart.length);
 
+
+    toast.success(`${product.title.substring(0, 20)}... added to cart!`, {
+       autoClose: 1000,
+       position:'top-center'
+      
+    
+    });
   };
 
   const filterProducts = (category) => {
@@ -101,6 +108,7 @@ const Products = ({ updateCart }) => {
           </div>
         )}
       </div>
+      <ToastContainer />
     </section>
   );
 };
