@@ -41,6 +41,7 @@ const ProductsButton = ({ onCategoryChange, activeCategory }) => {
     </section>
   );
 };
-
+ 
 
 export default ProductsButton;
+

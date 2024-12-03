@@ -1,11 +1,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from "./components/Navbar/Navbar"
+import Navbar from "./components/Navbar"
 import Home from "./pages/Home"
 import './App.css'
-import Products from "./components/Products/Products"
-import Footer from "./components/Footer/Footer"
+import Products from "./components/Products"
+import Footer from "./components/Footer"
 import Register from "./pages/Register"
 import Login from "./pages/Login"
 import About from './pages/About';
@@ -55,6 +55,5 @@ function App() {
     </>
   );
 }
-
 
 export default App;

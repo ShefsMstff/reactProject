@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './_Product.scss';
 import ProductsButton from '../ProductsButton';
 
-const Products = ({ updateCart }) => {
+  const Products = ({ updateCart }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  let error =null;
+  const [error, setError] = useState(null);
   const [category, setCategory] = useState('all'); 
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [activeCategory, setActiveCategory] = useState('all'); 
@@ -20,7 +20,8 @@ const Products = ({ updateCart }) => {
       setProducts(data);
       setFilteredProducts(data);
     } catch (err) {
-      error = err.message;
+      setError(err.message);
+    
     } finally {
       setLoading(false);
     }

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, {  useEffect } from 'react';
 import './_Home.scss';
-import mainImage from '../assets/image/main.png.jpg';
-import Products from '../components/Products/Products';
+import mainImage from '../../assets/image/main.png.jpg';
+import Products from '../../components/Products';
 
 const Home = ({ updateCart }) => {
-  const [cartCount, setCartCount] = useState(0);
+  
 
   useEffect(() => {
     const handleStorageChange = () => {

@@ -84,7 +84,7 @@ const Card = ({ updateCart }) => {
                 <p>Products: {cartItems.reduce((total, item) => total + (item.quantity || 1), 0)} 
                 </p>
                 <span>Shipping: ${shipping}</span>
-                <h4>Total Amount: ${totalAmount.toFixed(2) + shipping}</h4>
+                <h4>Total Amount: ${(totalAmount + shipping).toFixed(2)}</h4>
                 <button className='checkout'>Go To checkout</button>
               </div>
             </div>
