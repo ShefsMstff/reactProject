@@ -10,22 +10,18 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
- 
     if (email === "" || password === "") {
       setError("Please fill in all fields.");
       return;
     }
-
-   
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser && storedUser.email === email && storedUser.password === password) {
-      navigate("/"); 
+      navigate("/");
       alert('login edildi!');
     } else {
       setError("Invalid email or password");
     }
-    
+
   };
 
   return (
@@ -33,27 +29,26 @@ const Login = () => {
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="login-email">Email</label>
-        <input 
-          type="email" 
-          id="login-email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-          placeholder="Enter your email" 
-          required 
+        <input
+          type="email"
+          id="login-email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email"
+          required
         />
 
         <label htmlFor="login-password">Password</label>
-        <input 
-          type="password" 
-          id="login-password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-          placeholder="Enter your password" 
-          required 
+        <input
+          type="password"
+          id="login-password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter your password"
+          required
         />
 
         {error && <p className="error">{error}</p>}
-
         <button type="submit">Login</button>
       </form>
       <p>

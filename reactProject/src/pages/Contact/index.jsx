@@ -8,30 +8,21 @@ const Contact = () => {
     message: '',
   });
 
-  let error = ''; 
-
+  let error = '';
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
   };
-
   const handleSubmit = (e) => {
-    e.preventDefault(); 
-
-  
+    e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) {
       error = 'Bütün sahələri doldurun!';
     } else {
-      
-     
     }
-
     if (error) {
       alert(error);
       return;
     }
-
-
     alert('Mesajınız göndərildi!');
   };
 
@@ -39,7 +30,7 @@ const Contact = () => {
     <div className="contact">
       <form onSubmit={handleSubmit}>
         <h1>Contact Us</h1>
-      
+
         <label htmlFor="name">Name</label>
         <input
           type="text"

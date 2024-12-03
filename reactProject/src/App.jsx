@@ -18,21 +18,17 @@ function App() {
 
   const updateCart = (count) => {
     setCartCount(count);
-    localStorage.setItem('cartCount', count); 
+    localStorage.setItem('cartCount', count);
   };
-
   useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
-    setCartCount(savedCart.length);
-
-    const handleStorageChange = () => {
+    const updateCartCount = () => {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       setCartCount(cart.length);
     };
-
-    window.addEventListener('storage', handleStorageChange);
+    updateCartCount();
+    window.addEventListener('storage', updateCartCount);
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('storage', updateCartCount);
     };
   }, []);
 

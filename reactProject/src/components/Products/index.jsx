@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './_Product.scss';
 import ProductsButton from '../ProductsButton';
 
-  const Products = ({ updateCart }) => {
+const Products = ({ updateCart }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [category, setCategory] = useState('all'); 
+  const [category, setCategory] = useState('all');
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [activeCategory, setActiveCategory] = useState('all'); 
+  const [activeCategory, setActiveCategory] = useState('all');
 
   const fetchProducts = async () => {
     try {
@@ -21,7 +21,7 @@ import ProductsButton from '../ProductsButton';
       setFilteredProducts(data);
     } catch (err) {
       setError(err.message);
-    
+
     } finally {
       setLoading(false);
     }
@@ -31,7 +31,7 @@ import ProductsButton from '../ProductsButton';
     const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
     const productExists = existingCart.find((item) => item.id === product.id);
 
-  
+
     let updatedCart;
     if (productExists) {
       updatedCart = existingCart.map((item) =>
@@ -40,22 +40,22 @@ import ProductsButton from '../ProductsButton';
     } else {
       updatedCart = [...existingCart, { ...product, quantity: 1 }];
     }
-  
+
     localStorage.setItem('cart', JSON.stringify(updatedCart));
-    updateCart(updatedCart.length); 
-    
+    updateCart(updatedCart.length);
+
   };
 
   const filterProducts = (category) => {
-    setActiveCategory(category); 
-    setCategory(category); 
+    setActiveCategory(category);
+    setCategory(category);
     if (category === 'all') {
-      setFilteredProducts(products); 
+      setFilteredProducts(products);
     } else {
       const filtered = products.filter((product) =>
         product.category.toLowerCase() === category.toLowerCase()
       );
-      setFilteredProducts(filtered); 
+      setFilteredProducts(filtered);
     }
   };
 

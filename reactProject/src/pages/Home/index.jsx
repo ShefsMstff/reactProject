@@ -1,17 +1,14 @@
-import React, {  useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './_Home.scss';
 import mainImage from '../../assets/image/main.png.jpg';
 import Products from '../../components/Products';
 
 const Home = ({ updateCart }) => {
-  
-
   useEffect(() => {
     const handleStorageChange = () => {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       setCartCount(cart.length);
     };
-
     window.addEventListener('storage', handleStorageChange);
     return () => {
       window.removeEventListener('storage', handleStorageChange);
